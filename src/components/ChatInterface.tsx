@@ -48,7 +48,7 @@ export const ChatInterface = () => {
 
   return (
     <div className="space-y-4">
-      <div className="h-[400px] overflow-y-auto space-y-4">
+      <div className="h-[400px] overflow-y-auto space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -56,7 +56,7 @@ export const ChatInterface = () => {
               message.role === "user"
                 ? "bg-medical-primary text-white ml-auto"
                 : "bg-gray-100 text-gray-800"
-            } max-w-[80%] ${message.role === "user" ? "ml-auto" : "mr-auto"}`}
+            } max-w-[80%] ${message.role === "user" ? "ml-auto" : "mr-auto"} break-words`}
           >
             {message.content}
           </div>
@@ -73,8 +73,14 @@ export const ChatInterface = () => {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type your health question here..."
           className="min-h-[50px] resize-none"
+          maxLength={1000}
         />
-        <Button type="submit" disabled={isLoading} className="bg-medical-primary hover:bg-medical-primary/90">
+        <Button 
+          type="submit" 
+          disabled={isLoading} 
+          className="bg-medical-primary hover:bg-medical-primary/90 transition-colors duration-200"
+          aria-label={isLoading ? "Sending message..." : "Send message"}
+        >
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Send"}
         </Button>
       </form>
