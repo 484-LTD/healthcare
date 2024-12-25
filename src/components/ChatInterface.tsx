@@ -17,54 +17,40 @@ export const ChatInterface = () => {
 
   const loadMessages = async () => {
     const { data: user } = await supabase.auth.getUser();
-    if (!user.user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to use the healthcare assistant.",
-        variant: "destructive",
-      });
-      return;
+    if (user.user) {
+      const { data, error } = await supabase
+        .from('messages')
+        .select('*')
+        .order('created_at', { ascending: true });
+
+      if (error) {
+        console.error('Error loading messages:', error);
+        return;
+      }
+
+      setMessages(data || []);
     }
-
-    const { data, error } = await supabase
-      .from('messages')
-      .select('*')
-      .order('created_at', { ascending: true });
-
-    if (error) {
-      console.error('Error loading messages:', error);
-      return;
-    }
-
-    setMessages(data || []);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    const { data: user } = await supabase.auth.getUser();
-    if (!user.user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to use the healthcare assistant.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     const userMessage = { role: "user", content: input };
+    const { data: user } = await supabase.auth.getUser();
     
-    const { error: insertError } = await supabase
-      .from('messages')
-      .insert({
-        ...userMessage,
-        user_id: user.user.id
-      });
+    if (user.user) {
+      const { error: insertError } = await supabase
+        .from('messages')
+        .insert({
+          ...userMessage,
+          user_id: user.user.id
+        });
 
-    if (insertError) {
-      console.error('Error storing message:', insertError);
-      return;
+      if (insertError) {
+        console.error('Error storing message:', insertError);
+        return;
+      }
     }
 
     setMessages((prev) => [...prev, userMessage]);
@@ -75,7 +61,7 @@ export const ChatInterface = () => {
       const response = await supabase.functions.invoke('chat-with-ai', {
         body: {
           messages: [...messages, userMessage],
-          userId: user.user.id
+          userId: user?.user?.id || null
         },
       });
 
@@ -83,7 +69,13 @@ export const ChatInterface = () => {
         throw new Error(response.error.message);
       }
 
-      await loadMessages();
+      if (user.user) {
+        await loadMessages();
+      } else {
+        const aiMessage = { role: "assistant", content: response.data };
+        setMessages(prev => [...prev, aiMessage]);
+      }
+      
       setIsLoading(false);
     } catch (error) {
       console.error('Error:', error);
