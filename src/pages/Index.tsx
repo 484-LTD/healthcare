@@ -33,12 +33,19 @@ const Index = () => {
               <Home className="h-5 w-5" />
             </Button>
           </div>
-          <h1 className="text-3xl font-bold text-medical-primary">
-            Healthcare AI
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Get instant AI-powered health information and guidance
-          </p>
+          <div className="flex flex-col items-center justify-center mb-6">
+            <img 
+              src="/lovable-uploads/eb809777-3a0e-43aa-8c8d-bc4640588b62.png" 
+              alt="Healthcare AI Logo" 
+              className="w-32 h-32 mb-4"
+            />
+            <h1 className="text-3xl font-bold text-medical-primary">
+              Healthcare AI
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Get instant AI-powered health information and guidance
+            </p>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-12 gap-6">
