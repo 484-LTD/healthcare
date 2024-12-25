@@ -40,7 +40,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const App = () => {
-  // Move useEffect inside the component
   useEffect(() => {
     document.documentElement.classList.add('dark');
   }, []);
