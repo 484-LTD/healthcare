@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const ChatInterface = () => {
   const [input, setInput] = useState("");
@@ -11,32 +12,83 @@ export const ChatInterface = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  useEffect(() => {
+    loadMessages();
+  }, []);
+
+  const loadMessages = async () => {
+    const { data: user } = await supabase.auth.getUser();
+    if (!user.user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to use the healthcare assistant.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from('messages')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      console.error('Error loading messages:', error);
+      return;
+    }
+
+    setMessages(data || []);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    const { data: user } = await supabase.auth.getUser();
+    if (!user.user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to use the healthcare assistant.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const userMessage = { role: "user", content: input };
+    
+    // Store user message in database
+    const { error: insertError } = await supabase
+      .from('messages')
+      .insert({
+        ...userMessage,
+        user_id: user.user.id
+      });
+
+    if (insertError) {
+      console.error('Error storing message:', insertError);
+      return;
+    }
+
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
 
     try {
-      // Here we would normally make the API call to OpenAI
-      // For now, we'll simulate a response
-      setTimeout(() => {
-        const aiMessage = {
-          role: "assistant",
-          content: "I apologize, but I need an API key to provide medical assistance. Please provide your OpenAI API key in the project settings.",
-        };
-        setMessages((prev) => [...prev, aiMessage]);
-        setIsLoading(false);
-      }, 1000);
-
-      toast({
-        title: "API Key Required",
-        description: "Please add your OpenAI API key in the project settings to enable the AI assistant.",
+      const response = await supabase.functions.invoke('chat-with-ai', {
+        body: {
+          messages: [...messages, userMessage],
+          userId: user.user.id
+        },
       });
+
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+
+      await loadMessages(); // Reload messages to get the AI response
+      setIsLoading(false);
     } catch (error) {
+      console.error('Error:', error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -55,8 +107,8 @@ export const ChatInterface = () => {
               key={index}
               className={`p-3 rounded-lg ${
                 message.role === "user"
-                  ? "bg-medical-primary text-white ml-auto"
-                  : "bg-medical-accent text-gray-800"
+                  ? "bg-blue-600 text-white ml-auto"
+                  : "bg-gray-100 text-gray-800"
               } max-w-[80%] ${message.role === "user" ? "ml-auto" : "mr-auto"}`}
             >
               {message.content}
@@ -75,7 +127,7 @@ export const ChatInterface = () => {
             placeholder="Type your health question here..."
             className="min-h-[50px] resize-none"
           />
-          <Button type="submit" disabled={isLoading} className="bg-medical-primary hover:bg-medical-primary/90">
+          <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-700">
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Send"}
           </Button>
         </form>
