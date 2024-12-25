@@ -32,7 +32,9 @@ export const ChatInterface = () => {
         throw new Error(response.error.message);
       }
 
-      const aiMessage = { role: "assistant", content: response.data };
+      // Handle the response properly, ensuring we get a string for content
+      const aiMessageContent = typeof response.data === 'object' ? response.data.content : response.data;
+      const aiMessage = { role: "assistant", content: aiMessageContent };
       setMessages(prev => [...prev, aiMessage]);
       setIsLoading(false);
     } catch (error) {
