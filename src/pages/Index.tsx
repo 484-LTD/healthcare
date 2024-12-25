@@ -94,6 +94,16 @@ const Index = () => {
                   </div>
                   <Progress value={98.5} className="h-2" />
                 </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Total Website Hits</span>
+                    <span>124,567</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-gray-600 mt-1">
+                    <span>AI Inquiries Made</span>
+                    <span>45,892</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
