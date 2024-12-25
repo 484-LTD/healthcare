@@ -79,12 +79,21 @@ const Index = () => {
                 professional medical advice. Always consult healthcare professionals for
                 medical decisions.
               </p>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Website Status</span>
-                  <span>99.9% Uptime</span>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Website Status</span>
+                    <span>99.9% Uptime</span>
+                  </div>
+                  <Progress value={99.9} className="h-2" />
                 </div>
-                <Progress value={99.9} className="h-2" />
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Folding@Home Servers</span>
+                    <span>98.5% Operational</span>
+                  </div>
+                  <Progress value={98.5} className="h-2" />
+                </div>
               </div>
             </div>
           </div>
