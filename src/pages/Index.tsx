@@ -3,9 +3,22 @@ import { Heart, Brain, Stethoscope, Home } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useEffect } from "react";
 
 const Index = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Load Twitter widget script
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-medical-accent/20">
@@ -67,6 +80,14 @@ const Index = () => {
                   <div>
                     <p className="text-sm text-gray-600">Medical Guidance</p>
                     <p className="font-semibold">Professional Information</p>
+                  </div>
+                </div>
+                <div className="mt-4 border-t pt-4">
+                  <h3 className="text-lg font-semibold mb-3">Latest Updates</h3>
+                  <div className="twitter-embed">
+                    <blockquote className="twitter-tweet">
+                      <a href="https://twitter.com/ODUMx/status/1769786414389698997"></a>
+                    </blockquote>
                   </div>
                 </div>
               </div>
