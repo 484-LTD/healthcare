@@ -1,10 +1,40 @@
 import { ChatInterface } from "@/components/ChatInterface";
-import { Heart, Brain, Stethoscope } from "lucide-react";
+import { Heart, Brain, Stethoscope, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      navigate("/login");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to sign out. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-medical-accent/20">
       <div className="container mx-auto px-4 py-12">
+        <div className="flex justify-end mb-4">
+          <Button
+            variant="outline"
+            onClick={handleLogout}
+            className="gap-2"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </Button>
+        </div>
+
         <div className="text-center mb-12 animate-fade-in">
           <h1 className="text-4xl font-bold text-medical-primary mb-4">
             Healthcare AI Assistant
