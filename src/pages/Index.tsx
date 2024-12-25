@@ -7,7 +7,7 @@ const Index = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-medical-primary">
-            Your Healthcare Assistant Dashboard
+            Your Healthcare AI Assistant
           </h1>
           <p className="text-gray-600 mt-2">
             Get instant AI-powered health information and guidance
