@@ -16,28 +16,48 @@ const Dashboard = () => {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        navigate("/login");
-        return;
-      }
-      
-      // Fetch user profile
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("username, phantom_wallet")
-        .eq("id", user.id)
-        .single();
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          navigate("/login");
+          return;
+        }
+        
+        // Fetch user profile using maybeSingle() instead of single()
+        const { data: profile, error } = await supabase
+          .from("profiles")
+          .select("username, phantom_wallet")
+          .eq("id", user.id)
+          .maybeSingle();
 
-      if (profile) {
-        setUsername(profile.username || "");
-        setPhantomWallet(profile.phantom_wallet || "");
+        if (error) {
+          console.error("Error fetching profile:", error);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to load profile data.",
+          });
+          return;
+        }
+
+        if (profile) {
+          setUsername(profile.username || "");
+          setPhantomWallet(profile.phantom_wallet || "");
+        }
+      } catch (error) {
+        console.error("Error in checkUser:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An error occurred while loading your profile.",
+        });
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     checkUser();
-  }, [navigate]);
+  }, [navigate, toast]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -103,6 +123,7 @@ const Dashboard = () => {
         description: "Your profile has been updated successfully.",
       });
     } catch (error) {
+      console.error("Error updating profile:", error);
       toast({
         variant: "destructive",
         title: "Update Failed",
