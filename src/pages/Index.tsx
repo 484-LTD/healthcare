@@ -1,11 +1,18 @@
 import { ChatInterface } from "@/components/ChatInterface";
 import { Heart, Brain, Stethoscope } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-medical-accent/20">
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
+        <div className="relative text-center mb-8">
+          <Link to="/login" className="absolute right-0 top-0">
+            <Button variant="outline" className="text-medical-primary">
+              Login
+            </Button>
+          </Link>
           <h1 className="text-3xl font-bold text-medical-primary">
             Your Healthcare AI Assistant
           </h1>
@@ -88,6 +95,11 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Copyright Footer */}
+        <footer className="mt-12 text-center text-gray-600 text-sm">
+          <p>© 2024 ODUM AI. All rights reserved.</p>
+        </footer>
       </div>
     </div>
   );
