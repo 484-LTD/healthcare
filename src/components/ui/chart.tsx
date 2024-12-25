@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-
+import { useId } from "@/hooks/use-id"
 import { cn } from "@/lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
@@ -41,7 +41,7 @@ const ChartContainer = React.forwardRef<
     >["children"]
   }
 >(({ id, className, children, config, ...props }, ref) => {
-  const uniqueId = React.useId()
+  const uniqueId = useId()
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`
 
   return (
