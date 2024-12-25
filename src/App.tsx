@@ -36,10 +36,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
-const App = () => {
+function App() {
   useEffect(() => {
     document.documentElement.classList.add('dark');
   }, []);
@@ -67,6 +67,6 @@ const App = () => {
       </TooltipProvider>
     </QueryClientProvider>
   );
-};
+}
 
 export default App;
