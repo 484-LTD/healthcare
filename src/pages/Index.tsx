@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useEffect } from "react";
+import HealthcareLogo from "@/components/HealthcareLogo";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -34,11 +35,7 @@ const Index = () => {
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center mb-6">
-            <img 
-              src="/lovable-uploads/eb809777-3a0e-43aa-8c8d-bc4640588b62.png" 
-              alt="Healthcare AI Logo" 
-              className="w-32 h-32 mb-4"
-            />
+            <HealthcareLogo className="w-32 h-32 mb-4 text-medical-primary" />
             <h1 className="text-3xl font-bold text-medical-primary">
               Healthcare AI
             </h1>
