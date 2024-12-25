@@ -1,7 +1,6 @@
 import * as React from "react"
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
 import { type VariantProps } from "class-variance-authority"
-
 import { cn } from "@/lib/utils"
 import { toggleVariants } from "@/components/ui/toggle"
 
@@ -12,7 +11,21 @@ const ToggleGroupContext = React.createContext<
   variant: "default",
 })
 
-type ToggleGroupProps = React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
+type BaseToggleGroupProps = React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root>
+
+interface ToggleGroupSingleProps extends BaseToggleGroupProps {
+  type: "single"
+  value?: string
+  defaultValue?: string
+}
+
+interface ToggleGroupMultipleProps extends BaseToggleGroupProps {
+  type: "multiple"
+  value?: string[]
+  defaultValue?: string[]
+}
+
+type ToggleGroupProps = (ToggleGroupSingleProps | ToggleGroupMultipleProps) &
   VariantProps<typeof toggleVariants>
 
 const ToggleGroup = React.forwardRef<
