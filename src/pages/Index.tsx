@@ -38,7 +38,7 @@ const Index = () => {
           {/* Main Chat Section */}
           <div className="md:col-span-8">
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-semibold mb-4">Chat with AI Assistant</h2>
+              <h2 className="text-xl font-semibold mb-4">Chat with Health AI</h2>
               <ChatInterface />
             </div>
           </div>
