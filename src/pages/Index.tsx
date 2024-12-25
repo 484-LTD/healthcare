@@ -1,6 +1,6 @@
 import { ChatInterface } from "@/components/ChatInterface";
 import { Heart, Brain, Stethoscope, Home } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useEffect } from "react";
@@ -9,7 +9,6 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load Twitter widget script
     const script = document.createElement("script");
     script.src = "https://platform.twitter.com/widgets.js";
     script.async = true;
@@ -33,11 +32,6 @@ const Index = () => {
             >
               <Home className="h-5 w-5" />
             </Button>
-            <Link to="/login" className="absolute right-0 top-0">
-              <Button variant="outline" className="text-medical-primary">
-                Login
-              </Button>
-            </Link>
           </div>
           <h1 className="text-3xl font-bold text-medical-primary">
             Your Healthcare AI Assistant
@@ -156,7 +150,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Copyright Footer */}
         <footer className="mt-12 text-center text-gray-600 text-sm">
           <p>© 2024 ODUM AI. All rights reserved.</p>
         </footer>

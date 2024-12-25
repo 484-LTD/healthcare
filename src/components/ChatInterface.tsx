@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
@@ -11,48 +11,11 @@ export const ChatInterface = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  useEffect(() => {
-    loadMessages();
-  }, []);
-
-  const loadMessages = async () => {
-    const { data: user } = await supabase.auth.getUser();
-    if (user.user) {
-      const { data, error } = await supabase
-        .from('messages')
-        .select('*')
-        .order('created_at', { ascending: true });
-
-      if (error) {
-        console.error('Error loading messages:', error);
-        return;
-      }
-
-      setMessages(data || []);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
     const userMessage = { role: "user", content: input };
-    const { data: user } = await supabase.auth.getUser();
-    
-    if (user.user) {
-      const { error: insertError } = await supabase
-        .from('messages')
-        .insert({
-          ...userMessage,
-          user_id: user.user.id
-        });
-
-      if (insertError) {
-        console.error('Error storing message:', insertError);
-        return;
-      }
-    }
-
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
@@ -61,7 +24,7 @@ export const ChatInterface = () => {
       const response = await supabase.functions.invoke('chat-with-ai', {
         body: {
           messages: [...messages, userMessage],
-          userId: user?.user?.id || null
+          userId: null
         },
       });
 
@@ -69,13 +32,8 @@ export const ChatInterface = () => {
         throw new Error(response.error.message);
       }
 
-      if (user.user) {
-        await loadMessages();
-      } else {
-        const aiMessage = { role: "assistant", content: response.data };
-        setMessages(prev => [...prev, aiMessage]);
-      }
-      
+      const aiMessage = { role: "assistant", content: response.data };
+      setMessages(prev => [...prev, aiMessage]);
       setIsLoading(false);
     } catch (error) {
       console.error('Error:', error);
