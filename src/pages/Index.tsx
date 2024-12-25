@@ -35,10 +35,15 @@ const Index = () => {
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center mb-6">
-            <HealthcareLogo className="w-32 h-32 mb-4 text-medical-primary" />
-            <h1 className="text-3xl font-bold text-medical-primary">
-              Healthcare AI
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-3xl font-bold text-medical-primary">
+                Healthcare
+              </h1>
+              <HealthcareLogo className="w-8 h-8 text-medical-primary" />
+              <h1 className="text-3xl font-bold text-medical-primary">
+                AI
+              </h1>
+            </div>
             <p className="text-gray-600 mt-2">
               Get instant AI-powered health information and guidance
             </p>
