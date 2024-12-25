@@ -2,6 +2,7 @@ import { ChatInterface } from "@/components/ChatInterface";
 import { Heart, Brain, Stethoscope, Home } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -73,11 +74,18 @@ const Index = () => {
 
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-xl font-semibold mb-4">Important Notice</h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 mb-4">
                 This AI assistant provides general information only and should not replace
                 professional medical advice. Always consult healthcare professionals for
                 medical decisions.
               </p>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>Website Status</span>
+                  <span>99.9% Uptime</span>
+                </div>
+                <Progress value={99.9} className="h-2" />
+              </div>
             </div>
           </div>
         </div>
