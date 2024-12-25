@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, Home } from "lucide-react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -146,6 +146,14 @@ const Dashboard = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-8">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => navigate("/")}
+            className="mr-2"
+          >
+            <Home className="h-5 w-5" />
+          </Button>
           <h1 className="text-2xl font-bold">User Profile</h1>
           <Button variant="outline" onClick={handleLogout}>
             Logout
