@@ -34,7 +34,7 @@ const Index = () => {
             </Button>
           </div>
           <h1 className="text-3xl font-bold text-medical-primary">
-            Your Healthcare AI Assistant
+            Healthcare AI
           </h1>
           <p className="text-gray-600 mt-2">
             Get instant AI-powered health information and guidance
