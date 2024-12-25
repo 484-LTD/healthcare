@@ -1,11 +1,45 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { ChatInterface } from "@/components/ChatInterface";
+import { Heart, Brain, Stethoscope } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-to-b from-white to-medical-accent/20">
+      <div className="container mx-auto px-4 py-12">
+        <div className="text-center mb-12 animate-fade-in">
+          <h1 className="text-4xl font-bold text-medical-primary mb-4">
+            Healthcare AI Assistant
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Your personal AI health companion. Get instant, AI-powered health information and guidance.
+          </p>
+        </div>
+
+        <ChatInterface />
+
+        <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
+          <div className="p-6 rounded-lg bg-white shadow-lg">
+            <Heart className="w-12 h-12 text-medical-primary mx-auto mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Health Information</h3>
+            <p className="text-gray-600">Get reliable information about symptoms, conditions, and treatments</p>
+          </div>
+          <div className="p-6 rounded-lg bg-white shadow-lg">
+            <Brain className="w-12 h-12 text-medical-primary mx-auto mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Smart Analysis</h3>
+            <p className="text-gray-600">AI-powered analysis of your health concerns and questions</p>
+          </div>
+          <div className="p-6 rounded-lg bg-white shadow-lg">
+            <Stethoscope className="w-12 h-12 text-medical-primary mx-auto mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Medical Guidance</h3>
+            <p className="text-gray-600">Get general medical guidance and health recommendations</p>
+          </div>
+        </div>
+
+        <div className="mt-12 text-center text-sm text-gray-500">
+          <p>
+            Note: This AI assistant provides general information only and should not replace professional medical advice.
+            Always consult with healthcare professionals for medical decisions.
+          </p>
+        </div>
       </div>
     </div>
   );
