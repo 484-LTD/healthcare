@@ -1,18 +1,30 @@
 import { ChatInterface } from "@/components/ChatInterface";
-import { Heart, Brain, Stethoscope } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Heart, Brain, Stethoscope, Home } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-medical-accent/20">
       <div className="container mx-auto px-4 py-8">
         <div className="relative text-center mb-8">
-          <Link to="/login" className="absolute right-0 top-0">
-            <Button variant="outline" className="text-medical-primary">
-              Login
+          <div className="flex justify-between items-center">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate("/")}
+              className="absolute left-0 top-0"
+            >
+              <Home className="h-5 w-5" />
             </Button>
-          </Link>
+            <Link to="/login" className="absolute right-0 top-0">
+              <Button variant="outline" className="text-medical-primary">
+                Login
+              </Button>
+            </Link>
+          </div>
           <h1 className="text-3xl font-bold text-medical-primary">
             Your Healthcare AI Assistant
           </h1>
