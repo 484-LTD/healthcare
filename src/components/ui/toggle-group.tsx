@@ -2,18 +2,30 @@ import * as React from "react"
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
 import { cn } from "@/lib/utils"
 
+type ToggleGroupContextValue = {
+  size?: "default" | "sm" | "lg"
+}
+
+const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({})
+
 const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <ToggleGroupPrimitive.Root
-    ref={ref}
-    className={cn(
-      "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1",
-      className
-    )}
-    {...props}
-  />
+  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & {
+    size?: "default" | "sm" | "lg"
+  }
+>(({ className, size = "default", children, ...props }, ref) => (
+  <ToggleGroupContext.Provider value={{ size }}>
+    <ToggleGroupPrimitive.Root
+      ref={ref}
+      className={cn(
+        "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </ToggleGroupPrimitive.Root>
+  </ToggleGroupContext.Provider>
 ))
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 

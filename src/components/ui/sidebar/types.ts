@@ -15,3 +15,5 @@ export type SidebarContext = {
 }
 
 export type SidebarMenuButtonVariantsType = VariantProps<typeof sidebarMenuButtonVariants>
+
+export type SidebarRef<T> = React.RefObject<T> | ((instance: T | null) => void) | null

@@ -179,6 +179,19 @@ export const SidebarGroupContent = React.forwardRef<HTMLDivElement, React.Compon
 )
 SidebarGroupContent.displayName = "SidebarGroupContent"
 
+export const SidebarSeparator = React.forwardRef<
+  React.ElementRef<typeof Separator>,
+  React.ComponentPropsWithoutRef<typeof Separator>
+>(({ className, ...props }, ref) => (
+  <Separator
+    ref={ref}
+    data-sidebar="separator"
+    className={cn("mx-2 w-auto bg-sidebar-border", className)}
+    {...props}
+  />
+))
+SidebarSeparator.displayName = "SidebarSeparator"
+
 export const SidebarMenu = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul">>(
   ({ className, ...props }, ref) => (
     <ul ref={ref} className={cn("flex w-full min-w-0 flex-col gap-1", className)} {...props} />
