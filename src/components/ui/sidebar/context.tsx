@@ -1,7 +1,7 @@
 import * as React from "react"
 import type { SidebarContext as SidebarContextType } from "./types"
 
-export const SidebarContext = React.createContext<SidebarContextType | null>(null)
+const SidebarContext = React.createContext<SidebarContextType | null>(null)
 
 export function useSidebar() {
   const context = React.useContext(SidebarContext)
@@ -10,3 +10,5 @@ export function useSidebar() {
   }
   return context
 }
+
+export { SidebarContext }

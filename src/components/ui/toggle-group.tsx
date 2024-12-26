@@ -17,15 +17,16 @@ ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
 const ToggleGroupItem = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & {
+    variant?: "default" | "outline"
+    size?: "default" | "sm" | "lg"
+  }
+>(({ className, variant = "default", size = "default", ...props }, ref) => (
   <ToggleGroupPrimitive.Item
     ref={ref}
-    className={cn(toggleVariants({ className }))}
+    className={cn(toggleVariants({ variant, size, className }))}
     {...props}
-  >
-    {children}
-  </ToggleGroupPrimitive.Item>
+  />
 ))
 ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName
 
