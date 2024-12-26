@@ -61,3 +61,13 @@ img {
   height: auto;
   display: block;
 }
+
+/* Hide Vercel deployment badge */
+[class*="vercel-deployment-badge"],
+[class*="vercel-badge"],
+[class*="deployment-badge"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
