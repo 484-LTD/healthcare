@@ -1,12 +1,14 @@
 import { type VariantProps } from "class-variance-authority"
-import { toggleVariants } from "@/components/ui/toggle"
+import { type Dispatch, type SetStateAction } from "react"
+
+export type SidebarState = "expanded" | "collapsed"
 
 export type SidebarContext = {
-  state: "expanded" | "collapsed"
+  state: SidebarState
   open: boolean
-  setOpen: (open: boolean) => void
+  setOpen: (open: boolean | ((prev: boolean) => boolean)) => void
   openMobile: boolean
-  setOpenMobile: (open: boolean) => void
+  setOpenMobile: Dispatch<SetStateAction<boolean>>
   isMobile: boolean
   toggleSidebar: () => void
 }
