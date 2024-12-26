@@ -17,3 +17,15 @@ export type SidebarContext = {
 export type SidebarMenuButtonVariantsType = VariantProps<typeof sidebarMenuButtonVariants>
 
 export type SidebarRef<T> = React.RefObject<T> | ((instance: T | null) => void) | null
+
+export interface SidebarBaseProps {
+  className?: string
+  children?: React.ReactNode
+}
+
+export interface SidebarButtonProps extends SidebarBaseProps {
+  asChild?: boolean
+  isActive?: boolean
+  variant?: SidebarMenuButtonVariantsType["variant"]
+  size?: SidebarMenuButtonVariantsType["size"]
+}
