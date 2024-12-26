@@ -160,7 +160,7 @@ const Index = () => {
         </div>
 
         <footer className="mt-12 text-center text-gray-600 text-sm">
-          <p>© 2024 ODUM AI. All rights reserved.</p>
+          <p>© 2024 ODUM AI. All rights reserved. CA: J6zMWRKa6h6iX2soQNQffCAmvhtWVLc9cbhfMjxcpump</p>
         </footer>
       </div>
     </div>
