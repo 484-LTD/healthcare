@@ -20,7 +20,7 @@ export const SidebarMenuButton = React.forwardRef<HTMLButtonElement, SidebarButt
 )
 SidebarMenuButton.displayName = "SidebarMenuButton"
 
-export const SidebarMenuSubButton = React.forwardRef<HTMLAnchorElement, SidebarButtonProps>(
+export const SidebarMenuSubButton = React.forwardRef<HTMLAnchorElement, SidebarButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>>(
   ({ asChild = false, size = "md", isActive, className, ...props }, ref) => {
     const Comp = asChild ? Slot : "a"
     return (
