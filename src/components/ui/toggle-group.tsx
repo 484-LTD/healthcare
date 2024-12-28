@@ -13,11 +13,10 @@ const ToggleGroup = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & {
     size?: "default" | "sm" | "lg"
   }
->(({ className, size = "default", children, type = "single", ...props }, ref) => (
+>(({ className, size = "default", children, ...props }, ref) => (
   <ToggleGroupContext.Provider value={{ size }}>
     <ToggleGroupPrimitive.Root
       ref={ref}
-      type={type}
       className={cn(
         "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1",
         className

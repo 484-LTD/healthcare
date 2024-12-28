@@ -16,9 +16,9 @@ export type SidebarContext = {
 
 export type SidebarMenuButtonVariantsType = VariantProps<typeof sidebarMenuButtonVariants>
 
-export type SidebarRef<T> = React.RefObject<T> | ((instance: T | null) => void) | null
+export type SidebarRef<T extends HTMLElement> = React.RefObject<T> | ((instance: T | null) => void) | null
 
-export interface SidebarBaseProps {
+export interface SidebarBaseProps extends React.HTMLAttributes<HTMLElement> {
   className?: string
   children?: React.ReactNode
 }
